@@ -1,6 +1,16 @@
-if SHIELD_MYHE
+if SHIELD_MYHE_LEFT
 
 config ZMK_KEYBOARD_NAME
     default "myhe"
+
+conifig ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_MYHE_LEFT || SHIELD_MYHE_RIGHT
+
+config ZMK_SPLIT
+    default y
 
 endif
