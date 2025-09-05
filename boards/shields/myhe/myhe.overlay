@@ -141,12 +141,12 @@
 
     };
 
-    &pinctrl {
-        uart0_default: uart0_default {
-            group1 {
-                pinctrl-select = <0>;
-                psels = <PINCTRL_PIN(8, UART0_TX)>,<PINCTRL_PIN(9,UART0_RX)>;
-            }
-        };
-    };
+    // &pinctrl {
+    //     uart0_default: uart0_default {
+    //         group1 {
+    //             pinctrl-select = <0>;
+    //             psels = <PINCTRL_PIN(8, UART0_TX)>,<PINCTRL_PIN(9,UART0_RX)>;
+    //         }
+    //     };
+    // };
 };
