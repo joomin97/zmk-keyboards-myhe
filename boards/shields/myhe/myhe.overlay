@@ -1,0 +1,150 @@
+/*
+* Copyright (c) 2025 Joomin97
+*
+* SPDX-License-Identifier: MIT
+*/
+
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix_transform = &default_transform;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <8>;
+        rows = <8>;
+        map =<
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7)
+            RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7)
+            RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7)
+            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7)
+            RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7)
+            RC(5,0) RC(5,1) RC(5,2) RC(5,3) RC(5,4) RC(5,5) RC(5,6) RC(5,7)
+            RC(6,0) RC(6,1) RC(6,2) RC(6,3) RC(6,4) RC(6,5) RC(6,6) RC(6,7)
+            RC(7,0) RC(7,1) RC(7,2) RC(7,3) RC(7,4) RC(7,5) RC(7,6) RC(7,7)            
+        >;
+    };
+
+    mux_hc4067:hc4067 {
+        compatible = "io-expander-mux";
+        #address-cells = <1>;
+        #size-cells = <0>;
+        select-gpios = <&gpio0 0 GPIO_ACTIVE_HIGH>, //S0 -> GP0
+                <&gpio0 1 GPIO_ACTIVE_HIGH>, //S1 -> GP1
+                <&gpio0 2 GPIO_ACTIVE_HIGH>, //S2 -> GP2
+                <&gpio0 3 GPIO_ACTIVE_HIGH>; //S3 -> GP3
+    };
+
+    adc_channels {
+        compatible = "zmk,adc-channels";
+        #address-cells = <1>
+        #size-cells = <0>
+
+        chan0:channel_0 {
+            label = "ADC_0_MUX_0";
+            zephyr.adc = <&adc>;
+            zephyr.channel-id = <0>; //ADC0 -> GP26
+        };
+        chan1:channel_1 {
+            label = "ADC_1_MUX_1";
+            zephyr.adc = <&adc>;
+            zephyr.channel-id = <1>; //ADC1 -> GP27
+        };
+        chan2:channel_2 {
+            label = "ADC_2_MUX_2";
+            zephyr.adc = <&adc>;
+            zephyr.channel-id = <2>; //ADC2 -> GP28
+        };
+        chan3:channel_3 {
+            label = "ADC_3_MUX_3";
+            zephyr.adc = <&adc>;
+            zephyr.channel-id = <3>; //ADC3 -> GP29
+        };
+    };
+
+    kscan0:kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        trigger-level-mv = <1800>;
+
+        r0c0 {mux = <&mux_hc4067 0>; channels = <&chan0>; row = <0>; col = <0>;};
+        r0c1 {mux = <&mux_hc4067 1>; channels = <&chan0>; row = <0>; col = <1>;};
+        r0c2 {mux = <&mux_hc4067 2>; channels = <&chan0>; row = <0>; col = <2>;};
+        r0c3 {mux = <&mux_hc4067 3>; channels = <&chan0>; row = <0>; col = <3>;};
+        r0c4 {mux = <&mux_hc4067 4>; channels = <&chan0>; row = <0>; col = <4>;};
+        r0c5 {mux = <&mux_hc4067 5>; channels = <&chan0>; row = <0>; col = <5>;};
+        r0c6 {mux = <&mux_hc4067 6>; channels = <&chan0>; row = <0>; col = <6>;};
+        r0c7 {mux = <&mux_hc4067 7>; channels = <&chan0>; row = <0>; col = <7>;};
+        r1c0 {mux = <&mux_hc4067 8>; channels = <&chan0>; row = <1>; col = <0>;};
+        r1c1 {mux = <&mux_hc4067 9>; channels = <&chan0>; row = <1>; col = <1>;};
+        r1c2 {mux = <&mux_hc4067 10>; channels = <&chan0>; row = <1>; col = <2>;};
+        r1c3 {mux = <&mux_hc4067 11>; channels = <&chan0>; row = <1>; col = <3>;};
+        r1c4 {mux = <&mux_hc4067 12>; channels = <&chan0>; row = <1>; col = <4>;};
+        r1c5 {mux = <&mux_hc4067 13>; channels = <&chan0>; row = <1>; col = <5>;};
+        r1c6 {mux = <&mux_hc4067 14>; channels = <&chan0>; row = <1>; col = <6>;};
+        r1c7 {mux = <&mux_hc4067 15>; channels = <&chan0>; row = <1>; col = <7>;};
+
+        r2c0 {mux = <&mux_hc4067 0>; channels = <&chan1>; row = <2>; col = <0>;};
+        r2c1 {mux = <&mux_hc4067 1>; channels = <&chan1>; row = <2>; col = <1>;};
+        r2c2 {mux = <&mux_hc4067 2>; channels = <&chan1>; row = <2>; col = <2>;};
+        r2c3 {mux = <&mux_hc4067 3>; channels = <&chan1>; row = <2>; col = <3>;};
+        r2c4 {mux = <&mux_hc4067 4>; channels = <&chan1>; row = <2>; col = <4>;};
+        r2c5 {mux = <&mux_hc4067 5>; channels = <&chan1>; row = <2>; col = <5>;};
+        r2c6 {mux = <&mux_hc4067 6>; channels = <&chan1>; row = <2>; col = <6>;};
+        r2c7 {mux = <&mux_hc4067 7>; channels = <&chan1>; row = <2>; col = <7>;};
+        r3c0 {mux = <&mux_hc4067 8>; channels = <&chan1>; row = <3>; col = <0>;};
+        r3c1 {mux = <&mux_hc4067 9>; channels = <&chan1>; row = <3>; col = <1>;};
+        r3c2 {mux = <&mux_hc4067 10>; channels = <&chan1>; row = <3>; col = <2>;};
+        r3c3 {mux = <&mux_hc4067 11>; channels = <&chan1>; row = <3>; col = <3>;};
+        r3c4 {mux = <&mux_hc4067 12>; channels = <&chan1>; row = <3>; col = <4>;};
+        r3c5 {mux = <&mux_hc4067 13>; channels = <&chan1>; row = <3>; col = <5>;};
+        r3c6 {mux = <&mux_hc4067 14>; channels = <&chan1>; row = <3>; col = <6>;};
+        r3c7 {mux = <&mux_hc4067 15>; channels = <&chan1>; row = <3>; col = <7>;};
+
+        r4c0 {mux = <&mux_hc4067 0>; channels = <&chan2>; row = <4>; col = <0>;};
+        r4c1 {mux = <&mux_hc4067 1>; channels = <&chan2>; row = <4>; col = <1>;};
+        r4c2 {mux = <&mux_hc4067 2>; channels = <&chan2>; row = <4>; col = <2>;};
+        r4c3 {mux = <&mux_hc4067 3>; channels = <&chan2>; row = <4>; col = <3>;};
+        r4c4 {mux = <&mux_hc4067 4>; channels = <&chan2>; row = <4>; col = <4>;};
+        r4c5 {mux = <&mux_hc4067 5>; channels = <&chan2>; row = <4>; col = <5>;};
+        r4c6 {mux = <&mux_hc4067 6>; channels = <&chan2>; row = <4>; col = <6>;};
+        r4c7 {mux = <&mux_hc4067 7>; channels = <&chan2>; row = <4>; col = <7>;};
+        r5c0 {mux = <&mux_hc4067 8>; channels = <&chan2>; row = <5>; col = <0>;};
+        r5c1 {mux = <&mux_hc4067 9>; channels = <&chan2>; row = <5>; col = <1>;};
+        r5c2 {mux = <&mux_hc4067 10>; channels = <&chan2>; row = <5>; col = <2>;};
+        r5c3 {mux = <&mux_hc4067 11>; channels = <&chan2>; row = <5>; col = <3>;};
+        r5c4 {mux = <&mux_hc4067 12>; channels = <&chan2>; row = <5>; col = <4>;};
+        r5c5 {mux = <&mux_hc4067 13>; channels = <&chan2>; row = <5>; col = <5>;};
+        r5c6 {mux = <&mux_hc4067 14>; channels = <&chan2>; row = <5>; col = <6>;};
+        r5c7 {mux = <&mux_hc4067 15>; channels = <&chan2>; row = <5>; col = <7>;};
+
+        r6c0 {mux = <&mux_hc4067 0>; channels = <&chan3>; row = <6>; col = <0>;};
+        r6c1 {mux = <&mux_hc4067 1>; channels = <&chan3>; row = <6>; col = <1>;};
+        r6c2 {mux = <&mux_hc4067 2>; channels = <&chan3>; row = <6>; col = <2>;};
+        r6c3 {mux = <&mux_hc4067 3>; channels = <&chan3>; row = <6>; col = <3>;};
+        r6c4 {mux = <&mux_hc4067 4>; channels = <&chan3>; row = <6>; col = <4>;};
+        r6c5 {mux = <&mux_hc4067 5>; channels = <&chan3>; row = <6>; col = <5>;};
+        r6c6 {mux = <&mux_hc4067 6>; channels = <&chan3>; row = <6>; col = <6>;};
+        r6c7 {mux = <&mux_hc4067 7>; channels = <&chan3>; row = <6>; col = <7>;};
+        r7c0 {mux = <&mux_hc4067 8>; channels = <&chan3>; row = <7>; col = <0>;};
+        r7c1 {mux = <&mux_hc4067 9>; channels = <&chan3>; row = <7>; col = <1>;};
+        r7c2 {mux = <&mux_hc4067 10>; channels = <&chan3>; row = <7>; col = <2>;};
+        r7c3 {mux = <&mux_hc4067 11>; channels = <&chan3>; row = <7>; col = <3>;};
+        r7c4 {mux = <&mux_hc4067 12>; channels = <&chan3>; row = <7>; col = <4>;};
+        r7c5 {mux = <&mux_hc4067 13>; channels = <&chan3>; row = <7>; col = <5>;};
+        r7c6 {mux = <&mux_hc4067 14>; channels = <&chan3>; row = <7>; col = <6>;};
+        r7c7 {mux = <&mux_hc4067 15>; channels = <&chan3>; row = <3>; col = <7>;};
+
+    };
+
+    &pinctrl {
+        uart0_default: uart0_default {
+            group1 {
+                pinctrl-select = <0>;
+                psels = <PINCTRL_PIN(8, UART0_TX)>,<PINCTRL_PIN(9,UART0_RX)>;
+            }
+        };
+    };
+};
