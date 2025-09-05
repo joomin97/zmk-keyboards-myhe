@@ -41,8 +41,8 @@
 
     adc_channels {
         compatible = "zmk,adc-channels";
-        #address-cells = <1>
-        #size-cells = <0>
+        #address-cells = <1>;
+        #size-cells = <0>;
 
         chan0:channel_0 {
             label = "ADC_0_MUX_0";
